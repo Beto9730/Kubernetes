@@ -579,7 +579,7 @@ deployment.apps/hello   3/3     3            3           27s
 NAME                               DESIRED   CURRENT   READY   AGE
 replicaset.apps/hello-868bcb8b84   3         3         3       27s
 `````
->37. 
+>37. Nos describe el servicio "hello" y nos muestra los endpoints que son las ips' de esos pods.
 `````
 alberto@alberto-VirtualBox:~/Kubernetes/pods$ kubectl describe svc hello
 Name:              hello
@@ -598,7 +598,7 @@ Endpoints:         172.17.0.5:8080,172.17.0.6:8080,172.17.0.7:8080
 Session Affinity:  None
 Events:            <none>
 `````
->38. 
+>38. Realizamos un curl a "hello" y nos responde con el pod: hello-868bcb8b84-rmftn
 `````
 root@ubuntu:/# curl http://hello:8080
 Hello, world!
@@ -606,13 +606,13 @@ Version: 1.0.0
 Hostname: hello-868bcb8b84-rmftn
 root@ubuntu:/# 
 `````
->39. 
+>39. Creamos nuestro octavo pod 08-hello-deployment-svc-nodePort.yaml
 `````
 alberto@alberto-VirtualBox:~/Kubernetes/pods$ kubectl apply -f 08-hello-deployment-svc-nodePort.yaml
 deployment.apps/hello created
 service/hello created   
 `````
->40. 
+>40. Nos permite ver los sevicios de los pods creados 
 `````
 alberto@alberto-VirtualBox:~/Kubernetes/pods$ kubectl get all
 NAME                         READY   STATUS    RESTARTS   AGE
@@ -633,7 +633,7 @@ alberto@alberto-VirtualBox:~/Kubernetes/pods$ kubectl get nodes -o wide
 NAME       STATUS   ROLES                  AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION     CONTAINER-RUNTIME
 minikube   Ready    control-plane,master   27h   v1.21.2   192.168.49.2   <none>        Ubuntu 20.04.2 LTS   5.8.0-59-generic   docker://20.10.7
 `````
->41. 
+>41. Creamos nuestro decimo pod 10-hello-v1-v2-deployment-svc.yaml
 `````   
 alberto@alberto-VirtualBox:~/Kubernetes/pods$ kubectl apply -f 10-hello-v1-v2-deployment-svc.yaml
 deployment.apps/hello-v1 created
@@ -641,7 +641,7 @@ deployment.apps/hello-v2 created
 service/hello-v1 created
 service/hello-v2 created
 `````
->42. 
+>42. Nos permite ver los sevicios de los pods creados 
 `````
 alberto@alberto-VirtualBox:~/Kubernetes/pods$ kubectl get all
 NAME                            READY   STATUS              RESTARTS   AGE
@@ -666,7 +666,7 @@ NAME                                  DESIRED   CURRENT   READY   AGE
 replicaset.apps/hello-v1-dc7b59fb4    3         3         3       17s
 replicaset.apps/hello-v2-59cc6d787c   3         3         1       17s
 `````
->43. 
+>43. Instalamos ingress (Es un nuevo tipo de recurs que nos permite crear accesos a nuestros servicios basados en el PATH)  
 `````
 alberto@alberto-VirtualBox:~/Kubernetes/pods$ minikube addons enable ingress
     ▪ Using image k8s.gcr.io/ingress-nginx/controller:v0.44.0
@@ -675,31 +675,34 @@ alberto@alberto-VirtualBox:~/Kubernetes/pods$ minikube addons enable ingress
 🔎  Verifying ingress addon...
 🌟  The 'ingress' addon is enabled
 `````
->44. 
+>44. Creamos nuestro undecimo pod 11-hello-ingress.yaml
 `````
 alberto@alberto-VirtualBox:~/Kubernetes/pods$ kubectl apply -f 11-hello-ingress.yaml
 ingress.networking.k8s.io/hello-app created
 alberto@alberto-VirtualBox:~/Kubernetes/pods$ kubectl get ing
 NAME        CLASS    HOSTS   ADDRESS   PORTS   AGE
 hello-app   <none>   *                 80      11s
+`````
+>45. Validamos que se creo un LoadBalancer y poder llegar al pod de nuestro servicio
+`````
 alberto@alberto-VirtualBox:~/Kubernetes/pods$ kubectl -n ingress-nginx get svc
 NAME                                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
-ingress-nginx-controller             NodePort    10.107.215.116   <none>        80:30094/TCP,443:30953/TCP   5m8s
+ingress-nginx-controller             LoadBalancer    10.107.215.116   <none>        80:30094/TCP,443:30953/TCP   5m8s
 ingress-nginx-controller-admission   ClusterIP   10.108.157.3     <none>        443/TCP                      5m8s
 `````
->45. 
+>46. Creamos nuestro pod 13-pod-configmap.yaml
 `````
 alberto@alberto-VirtualBox:~/Kubernetes/pods$ kubectl apply -f 13-pod-configmap.yaml
 pod/nginx created
 `````
->46. 
+>47. Validamos que esta corriendo de manera correcta
 `````
 alberto@alberto-VirtualBox:~/Kubernetes/pods$ kubectl get pods
 NAME     READY   STATUS    RESTARTS   AGE
 nginx    1/1     Running   0          6s
 ubuntu   1/1     Running   0          41m
 `````
->47. 
+>48. Validamos que tenemos nuestras variables de entorno creadas
 `````
 alberto@alberto-VirtualBox:~/Kubernetes/pods$ kubectl exec -it nginx -- sh
 / # env
