@@ -9,14 +9,14 @@ Laboratorio de Kubernetes + Teoría
 
  El Master de Kubernetes es un conjunto de tres daemons que se ejecutan en un único nodo del clúster, que se denomina nodo master. Estos daemons son: 
  
- - ***kube-apiserver***          : el servidor de la API de Kubernetes valida y configura los datos de los objetos de la API, que incluyen pods, servicios, controladores de replicación y otros
+ - ***kube-apiserver***          : el servidor de la API de Kubernetes valida y configura los datos de los objetos de la API, que incluyen pods, servicios, controladores de replicación y otros.
  - ***kube-controller-manager*** : componente del plano de control que ejecuta los controladores de Kubernetes.
- - ***kube-scheduler***          : se encarga de mover los contenedores de un lugar a otro
+ - ***kube-scheduler***          : se encarga de mover los contenedores de un lugar a otro.
 
 
 Los restantes nodos no master contenidos en tu clúster, ejecutan los siguientes dos daemons:
 
-- ***kubelet***    : el cual se comunica con el Master de Kubernetes, es como un servicio de kubernetes que permite conectar todos los workes y todos los servicios de kubernetes entre si 
+- ***kubelet***    : el cual se comunica con el Master de Kubernetes, es como un servicio de kubernetes que permite conectar todos los workes y todos los servicios de kubernetes entre si.
 - ***kube-proxy*** : un proxy de red que implementa los servicios de red de Kubernetes en cada nodo.
 
 
@@ -33,6 +33,6 @@ Los objetos básicos de Kubernetes incluyen:
 
 - ReplicaSet  : mantiene un conjunto estable de réplicas de Pods ejecutándose en todo momento.
 - Deployment  : es un template para crear pods , declaro las replicas kubernetes se encarga que corran todo el tiempo.
-- StatefulSet : una forma de crear pods que tienen un volumen( este disco va estar atado a este pod y la data no se va a perder) (base de datos)
+- StatefulSet : una forma de crear pods que tienen un volumen( este disco va estar atado a este pod y la data no se va a perder) (base de datos).
 - DaemonSet   : es una forma de deployar un pod , pero este pod va estar deployado en todos los nodos.
 - Job         : un Job crea uno o más Pods y se asegura de que un número específico de ellos termina de forma satisfactoria.
