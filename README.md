@@ -16,8 +16,8 @@ Laboratorio de Kubernetes + Teoría
 
 Los restantes nodos no master contenidos en tu clúster, ejecutan los siguientes dos daemons:
 
-- ***kubelet***,  : el cual se comunica con el Master de Kubernetes, es como un servicio de kubernetes que permite conectar todos los workes y todos los servicios de kubernetes entre si 
-- ***kube-proxy***, un proxy de red que implementa los servicios de red de Kubernetes en cada nodo.
+- ***kubelet***    : el cual se comunica con el Master de Kubernetes, es como un servicio de kubernetes que permite conectar todos los workes y todos los servicios de kubernetes entre si 
+- ***kube-proxy*** : un proxy de red que implementa los servicios de red de Kubernetes en cada nodo.
 
 
 ### **Objetos de Kubernetes**
